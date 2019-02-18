@@ -5,7 +5,10 @@ import java.util
 import org.codehaus.jackson.map.ObjectMapper
 import org.apache.kafka.common.serialization.Deserializer
 
-
+/**
+  * Deserializer for {@link BookingEvent}
+  * Serialized input should be valid json representation of object.
+  */
 class EventDeserializer extends Deserializer[BookingEvent] {
   override def configure(configs: util.Map[String, _], isKey: Boolean): Unit = {
 
