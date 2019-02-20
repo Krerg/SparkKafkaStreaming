@@ -15,4 +15,11 @@ class EventDeserializerTest extends FunSuite{
     assert(event.siteName == deserializedEvent.siteName)
   }
 
+  test("Should return empty event in case error or exception") {
+    val objectMapper = new ObjectMapper()
+    val serializedEvent = Array.emptyByteArray
+    val deserializedEvent = eventDeserializer.deserialize("", serializedEvent)
+    assert(deserializedEvent == eventDeserializer.EMPTY_EVENT)
+  }
+
 }
