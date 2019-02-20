@@ -32,28 +32,7 @@ case class BookingEvent(@BeanProperty var dateTime: Date = null,
                        ) {
 
   def this() {
-    this(new Date(),
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      false,
-      false,
-      0,
-      "",
-      "",
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      false,
-      0,
-      0)
+    this(dateTime = new Date(), srchCi = "", srchCo = "")
   }
 
 }
