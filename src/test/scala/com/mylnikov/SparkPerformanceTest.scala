@@ -30,7 +30,7 @@ class SparkPerformanceTest extends FunSuite {
     executor.execute(job)
     Thread.sleep(30000)
     val sizeOfDirectory = FileUtils.sizeOfDirectory(outputPath.toFile)
-    job.close
+    job.close()
 
     //Wait 1s for successful Thread finishing
     Thread.sleep(1000)
@@ -53,24 +53,28 @@ class SparkPerformanceTest extends FunSuite {
       SparkStreaming.main(args)
     }
 
-    override def close: Unit = {
-      SparkStreaming.ssc.stop(true, true)
+    override def close(): Unit = {
+      SparkStreaming.ssc.stop(stopSparkContext = true, stopGracefully = true)
     }
   }
 
   class KafkaPollJob extends ClosableRunnable {
 
     override def run(): Unit = {
-      KafkaBatching.main(new Array[String](0))
+      val args = new Array[String](3)
+      args(0) = "localhost:9092"
+      args(1) = "tmp"
+      args(2) = "kafkaBatch"
+      KafkaBatching.main(args)
     }
 
-    override def close: Unit = {
+    override def close(): Unit = {
       KafkaBatching.stopped = true
     }
   }
 
   trait ClosableRunnable extends Runnable {
-    def close
+    def close()
   }
 
 }
